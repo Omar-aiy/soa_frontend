@@ -48,12 +48,12 @@ const ProductsOverview = () => {
                 </Card> 
                 
                 {productChoices.length === 0 ? (<p className="mt-5 text-center">Chose your search selection</p>) : null}
-                {productChoices == "Movie" ? <Products lList={movies} type={productChoices} /> : null}
-                {productChoices == "Music" ? <Products lList={musics} type={productChoices} /> : null}
-                {productChoices == "Game" ? <Products lList={games} type={productChoices} /> : null}
-                {productChoices == "Book" ? <Products lList={books} type={productChoices} /> : null}
-                {productChoices == "Manga" ? <Products lList={mangas} type={productChoices} /> : null}
-                {productChoices == "Anime" ? <Products lList={animes} type={productChoices} /> : null}
+                {productChoices === "Movie" ? <Products lList={movies} type={productChoices} /> : null}
+                {productChoices === "Music" ? <Products lList={musics} type={productChoices} /> : null}
+                {productChoices === "Game" ? <Products lList={games} type={productChoices} /> : null}
+                {productChoices === "Book" ? <Products lList={books} type={productChoices} /> : null}
+                {productChoices === "Manga" ? <Products lList={mangas} type={productChoices} /> : null}
+                {productChoices === "Anime" ? <Products lList={animes} type={productChoices} /> : null}
                 <Footer />
             </Container>
         </>
