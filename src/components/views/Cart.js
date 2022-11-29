@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../Header";
 import { Container, Row, Col, Card, CardBody, CardFooter, Table, Media, Badge, Button } from "reactstrap";
 import Footer from "../Footer";
+import OrderService from "../../services/order-service";
 
 const Cart = () => {
     const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("Cart")) || []);
@@ -16,6 +17,13 @@ const Cart = () => {
         localStorage.setItem("Cart", JSON.stringify(cart));
         setCart([...cart]);
         window.location.reload();
+    };
+
+    const onCheckout = () => {
+        // OrderService.createOrder(cart);
+        setCart([]);
+        localStorage.setItem("Cart", JSON.stringify([]));
+        alert("Order has been placed!");
     };
 
     return (
@@ -81,7 +89,7 @@ const Cart = () => {
                                 <h2 className="m-0 text-dark">€&nbsp;&nbsp;{totalPrice}</h2>
                             </Col>
                             <Col xl="2" className="py-2">
-                                <Button className="w-100" color="dark" size="lg">
+                                <Button className="w-100" color="dark" size="lg" onClick={onCheckout}>
                                     Order Now
                                 </Button>
                             </Col>
