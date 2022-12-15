@@ -32,7 +32,7 @@ const ProductsOverview = () => {
                     </CardBody>
                 </Card> 
                 
-                {productChoices.length === 0 ? (<p className="mt-5 text-center">Chose your search selection</p>) : <Products type={productChoices} />}
+                {productChoices.length === 0 ? (<p className="mt-5 text-center">Chose your search selection</p>) : <Products type={productChoices} admin={false}/>}
                 <Footer />
             </Container>
         </>

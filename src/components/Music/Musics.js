@@ -58,8 +58,15 @@ const Musics = ( { list, setList, setUsingList, setErrorModal, admin=false } ) =
 
     return (
         <>
-            <button className="btn btn-dark btn-sm w-100" onClick={() => setAddModal(!addModal)}>Add Music</button>
-            <ModalAddGeneral isOpen={addModal} toggle={triggerAddModal} addProduct={addProduct} type="Music"/>
+            {
+                admin && (
+                    <>
+                        <button className="btn btn-dark btn-sm w-100" onClick={() => setAddModal(!addModal)}>Add Music</button>
+                        <ModalAddGeneral isOpen={addModal} toggle={triggerAddModal} addProduct={addProduct} type="Music"/>
+            
+                    </>
+                )
+            }
             <ModalProduct isOpen={openModal} toggle={triggerModal} title={viewMusic.title} text={viewMusic.description} image={viewMusic.url} type={viewMusic.type} price={viewMusic.price} />
             <ModalEditGeneral isOpen={editModal} toggle={triggerEditModal} product={viewMusic} editProduct={editProduct} />
             <thead className="bg-danger text-white">

@@ -62,8 +62,15 @@ const Movies = ( { list, setList, setUsingList, setErrorModal, admin=false } ) =
 
     return (
         <>
-            <button className="btn btn-dark btn-sm w-100" onClick={() => setAddModal(!addModal)}>Add Movie</button>
-            <ModalAddGeneral isOpen={addModal} toggle={triggerAddModal} addProduct={addProduct} type="Movie"/>
+            {
+                admin && (
+                    <>
+                        <button className="btn btn-dark btn-sm w-100" onClick={() => setAddModal(!addModal)}>Add Movie</button>
+                        <ModalAddGeneral isOpen={addModal} toggle={triggerAddModal} addProduct={addProduct} type="Movie"/>
+            
+                    </>
+                )
+            }
             <ModalProduct isOpen={openModal} toggle={triggerModal} title={viewMovie.title} text={viewMovie.description} image={viewMovie.picture_url} type={viewMovie.type} price={viewMovie.price} />
             <ModalEditGeneral isOpen={editModal} toggle={triggerEditModal} product={viewMovie} editProduct={editProduct} />
             <thead className="bg-danger text-white">

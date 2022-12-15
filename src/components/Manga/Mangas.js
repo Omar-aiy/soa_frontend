@@ -62,8 +62,15 @@ const Mangas = ( { list, setList, setUsingList, setErrorModal, admin=false } ) =
 
     return (
         <>
-            <button className="btn btn-dark btn-sm w-100" onClick={() => setAddModal(!addModal)}>Add Manga</button>
-            <ModalAddGeneral isOpen={addModal} toggle={triggerAddModal} addProduct={addProduct} type="Manga"/>
+            {
+                admin && (
+                    <>
+                        <button className="btn btn-dark btn-sm w-100" onClick={() => setAddModal(!addModal)}>Add Manga</button>
+                        <ModalAddGeneral isOpen={addModal} toggle={triggerAddModal} addProduct={addProduct} type="Manga"/>
+            
+                    </>
+                )
+            }
             <ModalEditGeneral isOpen={editModal} toggle={triggerEditModal} product={view} editProduct={editProduct} />
             <ModalProduct isOpen={openModal} toggle={triggerModal} title={view.title} text={view.description} image={view.picture_url} type={view.type} price={view.price} />
             <thead className="bg-danger text-white">

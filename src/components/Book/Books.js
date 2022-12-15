@@ -75,8 +75,15 @@ const Books = ( { list, setList, setUsingList, setErrorModal, admin=false } ) =>
 
     return (
         <>
-            <button className="btn btn-dark btn-sm w-100" onClick={() => setAddModal(!addModal)}>Add Book</button>
-            <ModalAddGeneral isOpen={addModal} toggle={triggerAddModal} addProduct={addProduct} type="Book"/>
+            {
+                admin && (
+                    <>
+                        <button className="btn btn-dark btn-sm w-100" onClick={() => setAddModal(!addModal)}>Add Book</button>
+                        <ModalAddGeneral isOpen={addModal} toggle={triggerAddModal} addProduct={addProduct} type="Book"/>
+            
+                    </>
+                )
+            }
             <ModalEditGeneral isOpen={editModal} toggle={triggerEditModal} product={viewBook} editProduct={editProduct} />
             <ModalProduct isOpen={openModal} toggle={triggerModal} title={viewBook.title} text={getText()} image={viewBook.thumbnail} type={viewBook.type} price={viewBook.price} />
             <thead className="bg-danger text-white">
