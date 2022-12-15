@@ -1,8 +1,8 @@
 import {useState} from "react";
 import { Pagination ,PaginationItem, PaginationLink } from "reactstrap";
 
-const PaginationCustom = ({ vidsPerPage, totalVids, paginate }) => {
-    const pageNumbers = Array(Math.ceil(totalVids / vidsPerPage)).fill().map((_, i) => i + 1);
+const PaginationCustom = ({ itemsPerPage, totalVids, paginate }) => {
+    const pageNumbers = Array(Math.ceil(totalVids / itemsPerPage)).fill().map((_, i) => i + 1);
 
     const [currentPage, setCurrentPage] = useState(1);
 

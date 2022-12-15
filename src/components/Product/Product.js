@@ -1,7 +1,26 @@
 import React from "react";
 import { Media, Button } from "reactstrap";
 
-const Product = ({ type, price, image, text, title, addToCart, view, showButtons=true }) => {
+const Product = ({ type, price, image, title, addToCart, view, showButtons=true, admin=false, deleteProduct, editProduct }) => { 
+
+    const getAdminButtons = () => {
+        if (admin) {
+            return (
+                <>
+                    <td>
+                        <Button id={`${title}-edit`} className="shadow-none" color="dark" type="button" size="sm" onClick={editProduct}>
+                            <i className="fa-solid fa-edit" />
+                        </Button>
+                    </td>
+                    <td>
+                        <Button id={`${title}-delete`} className="shadow-none" color="danger" type="button" size="sm" onClick={deleteProduct}>
+                            <i className="fa-solid fa-trash"/>
+                        </Button>
+                    </td>
+                </>
+            );
+        }
+    };
 
     const getButtons = (title) => {
         if (showButtons) {
@@ -35,6 +54,7 @@ const Product = ({ type, price, image, text, title, addToCart, view, showButtons
             <td>€ {price}</td>
             <td>{type}</td>
             {getButtons(title.trim())}
+            {getAdminButtons()}
         </tr>
     );
 };

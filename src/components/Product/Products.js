@@ -7,43 +7,57 @@ import Games from "../Game/Games";
 import Books from "../Book/Books";
 import Mangas from "../Manga/Mangas";
 import Animes from "../Anime/Animes";
+import ModalError from "../Modal/ModalError";
 
-
-const Products = ({ lList, type }) => {
-    const [list, setList] = React.useState(lList.length === 0 || lList == null ? [] : lList);
+const Products = ({ type, admin }) => {
+    const [list, setList] = React.useState([]);
     const [currentPage, setCurrentPage] = React.useState(1);
     const [itemsPerPage] = React.useState(3);
+    const [errorMessage, setErrorMessage] = React.useState("An error has occurred.");
+    const [error, setError] = React.useState(false);
+    const [usingList, setUsingList] = React.useState([]);
 
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = list.slice(indexOfFirstItem, indexOfLastItem);
-    const usingList = list.length === 1 ? list : currentItems;
-    
+    const setErrorModal = (error) => {
+        setErrorMessage(error);
+        setError(true);
+    };
+
+    const closeErrorModal = () => setError(false);
+
+    const setUsingListFunction = (id) => {
+        if (id) {
+            setList(list.filter((item) => item.id !== id));
+        }
+        const indexOfLastItem = currentPage * itemsPerPage;
+        const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+        setUsingList(list.slice(indexOfFirstItem, indexOfLastItem));
+    };
+
+    React.useEffect(() => {
+        const indexOfLastItem = currentPage * itemsPerPage;
+        const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+        setUsingList(list.slice(indexOfFirstItem, indexOfLastItem));
+    }, [list, currentPage, itemsPerPage]);
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    const getProductHTML = () => {
-        switch (type) {
-            case "Music":
-                return ( <Musics list={usingList} setList={setList} /> );
-            case "Game":
-                return ( <Games list={usingList} setList={setList} /> );
-            case "Book":
-                return ( <Books list={usingList} setList={setList} /> );
-            case "Manga":
-                return ( <Mangas list={usingList} setList={setList} /> );
-            case "Anime":
-                return ( <Animes list={usingList} setList={setList} /> );
-            default:
-                return ( <Movies list={usingList} setList={setList} /> );
-        }
+    const typeOfProduct = {
+        "Game": ( <Games list={usingList} setList={setList} setUsingList={setUsingListFunction} setErrorModal={setErrorModal} admin={admin}/> ),
+        "Book": ( <Books list={usingList} setList={setList} setUsingList={setUsingListFunction} setErrorModal={setErrorModal} admin={admin}/> ),
+        "Manga": ( <Mangas list={usingList} setList={setList} setUsingList={setUsingListFunction} setErrorModal={setErrorModal} admin={admin}/> ),
+        "Anime": ( <Animes list={usingList} setList={setList} setUsingList={setUsingListFunction} setErrorModal={setErrorModal} admin={admin}/> ),
+        "Music": ( <Musics list={usingList} setList={setList} setUsingList={setUsingListFunction} setErrorModal={setErrorModal} admin={admin}/> ),
+        "Movie": ( <Movies list={usingList} setList={setList} setUsingList={setUsingListFunction} setErrorModal={setErrorModal} admin={admin}/> ),
+        "default": ( <Movies list={usingList} setList={setList} setUsingList={setUsingListFunction} setErrorModal={setErrorModal} admin={admin}/> )
     };
 
     return (
         <>
+            <ModalError isOpen={error} toggle={closeErrorModal} text={errorMessage} />
             <Table className="align-items-center mt-4" responsive>
-                {getProductHTML()}
+                {typeOfProduct[type] || typeOfProduct["default"]}
             </Table>
-            <PaginationCustom vidsPerPage={itemsPerPage} totalVids={list.length} paginate={paginate}/>
+            <PaginationCustom itemsPerPage={itemsPerPage} totalVids={list.length} paginate={paginate}/>
         </>
     );
 };

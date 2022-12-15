@@ -7,21 +7,6 @@ import Products from "../Product/Products";
 
 const ProductsOverview = () => {
     const [productChoices, setProductChoices] = React.useState("Movie");
-    const [movies, setMovies] = React.useState([]);
-    const [musics, setMusics] = React.useState([]);
-    const [games, setGames] = React.useState([]);
-    const [books, setBooks] = React.useState([]);
-    const [mangas, setMangas] = React.useState([]);
-    const [animes, setAnimes] = React.useState([]);
-
-    React.useEffect(() => {
-        setMovies(JSON.parse(localStorage.getItem("Movie")) || []);
-        setMusics(JSON.parse(localStorage.getItem("Music")) || []);
-        setGames(JSON.parse(localStorage.getItem("Game")) || []);
-        setBooks(JSON.parse(localStorage.getItem("Book")) || []);
-        setMangas(JSON.parse(localStorage.getItem("Manga")) || []);
-        setAnimes(JSON.parse(localStorage.getItem("Anime")) || []);
-    }, []);
 
     return (
         <>
@@ -47,13 +32,7 @@ const ProductsOverview = () => {
                     </CardBody>
                 </Card> 
                 
-                {productChoices.length === 0 ? (<p className="mt-5 text-center">Chose your search selection</p>) : null}
-                {productChoices === "Movie" ? <Products lList={movies} type={productChoices} /> : null}
-                {productChoices === "Music" ? <Products lList={musics} type={productChoices} /> : null}
-                {productChoices === "Game" ? <Products lList={games} type={productChoices} /> : null}
-                {productChoices === "Book" ? <Products lList={books} type={productChoices} /> : null}
-                {productChoices === "Manga" ? <Products lList={mangas} type={productChoices} /> : null}
-                {productChoices === "Anime" ? <Products lList={animes} type={productChoices} /> : null}
+                {productChoices.length === 0 ? (<p className="mt-5 text-center">Chose your search selection</p>) : <Products type={productChoices} />}
                 <Footer />
             </Container>
         </>

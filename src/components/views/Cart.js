@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../Header";
-import { Container, Row, Col, Card, CardBody, CardFooter, Table, Media, Badge, Button } from "reactstrap";
+import { Container, Row, Col, Card, CardBody, CardFooter, Table, Media, Badge, Button, Alert } from "reactstrap";
 import Footer from "../Footer";
 import OrderService from "../../services/order-service";
 
@@ -20,10 +20,16 @@ const Cart = () => {
     };
 
     const onCheckout = () => {
-        // OrderService.createOrder(cart);
-        setCart([]);
-        localStorage.setItem("Cart", JSON.stringify([]));
-        alert("Order has been placed!");
+        OrderService.createOrder(cart)
+            .then((response) => {
+                setCart([]);
+                localStorage.setItem("Cart", JSON.stringify([]));
+                alert("Order has been placed!");
+            })
+            .catch((error) => {
+                console.log(error.response.data);
+                alert("Something went wrong!");
+            });
     };
 
     return (

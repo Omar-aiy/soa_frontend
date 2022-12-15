@@ -4,16 +4,31 @@ class AnimeService {
     
     constructor() {
         this.api = axios.create({
-            baseURL: 'https://r0716032-soa-restapi.herokuapp.com/',
+            baseURL: 'http://84.192.118.116:7002/anime',
         });
     }
     
     async getAnimes() {
-        const { data } = await this.api.get('/products');
+        const { data } = await this.api.get('/list');
         return data.map((anime) => {
             anime.type = "Anime";
             return anime;
         });
+    }
+
+    async addAnime(anime) {
+        const {data} = await this.api.post('/post', anime)
+        return data;
+    }
+
+    async deleteAnime (id) {
+        const {data}  = await this.api.delete(`/delete/${id}`);
+        return data;
+    }
+
+    async editAnime(id, anime) {
+        const {data} = await this.api.put(`/update/${id}`, anime);
+        return data;
     }
 
 }
