@@ -5,10 +5,7 @@ class MovieService {
     
     constructor() {
         this.api = axios.create({
-            baseURL: 'http://84.192.118.116:7002/movie',
-            httpsAgent: new https.Agent({
-                rejectUnauthorized: false
-            })
+            baseURL: 'http://84.192.118.116:7002/movie'
         });
     }
     
