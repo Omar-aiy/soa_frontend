@@ -11,6 +11,7 @@
     "chart.js": "^4.0.1",
     "classnames": "^2.3.2",
     "cra-template": "1.2.0",
+    "http": "^0.0.1-security",
     "https": "^1.0.0",
     "kafkajs": "^2.2.3",
     "moment": "^2.29.4",

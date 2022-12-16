@@ -1,10 +1,18 @@
 import axios from 'axios';
+import * as https from 'https';
+import * as http from 'http';
 
 class MovieService {
     
     constructor() {
         this.api = axios.create({
-            baseURL: 'http://84.192.118.116:7002/movie'
+            baseURL: 'http://84.192.118.116:7002/movie',
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false
+            }),
+            httpAgent: new http.Agent({
+                rejectUnauthorized: false
+            })
         });
     }
     
